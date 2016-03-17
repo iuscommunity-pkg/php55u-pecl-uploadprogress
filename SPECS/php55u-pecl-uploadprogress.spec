@@ -38,11 +38,11 @@ Provides: %{php}-pecl(%{pecl_name})%{?_isa} = %{version}
 Conflicts: php-%{pecl_name} < %{version}
 Conflicts: php-pecl-%{pecl_name} < %{version}
 
-%if 0%{?fedora} < 20 && 0%{?rhel} < 7
-# Filter private shared object
-%{?filter_provides_in: %filter_provides_in %{_libdir}/.*\.so$}
+# RPM 4.8
+%{?filter_provides_in: %filter_provides_in %{php_extdir}/.*\.so$}
 %{?filter_setup}
-%endif
+# RPM 4.9
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}%{php_extdir}/.*\\.so$
 
 
 %description
@@ -136,6 +136,7 @@ fi
 %changelog
 * Thu Mar 17 2016 Carl George <carl.george@rackspace.com> - 1.0.3.1-2.ius
 - Clean up provides
+- Clean up filters
 
 * Mon Aug 31 2015 Carl George <carl.george@rackspace.com> - 1.0.3.1-1.ius
 - Initial spec file
