@@ -93,21 +93,15 @@ popd
 
 
 %check
-pushd nts
 # simple module load test
 %{__php} --no-php-ini \
-    --define extension_dir=%{buildroot}%{php_extdir}/\
-    --define extension=%{pecl_name}.so \
-    --modules | grep uploadprogress
-popd
+    --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
+    --modules | grep %{pecl_name}
 
 %if %{with_zts}
-pushd zts
 %{__ztsphp} --no-php-ini \
-    --define extension_dir=%{buildroot}%{php_ztsextdir}/\
-    --define extension=%{pecl_name}.so \
-    --modules | grep uploadprogress
-popd
+    --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
+    --modules | grep %{pecl_name}
 %endif
 
 
@@ -140,6 +134,7 @@ fi
 - Clean up filters
 - Install package.xml as %%{pecl_name}.xml, not %%{name}.xml
 - Explicitly build require pear
+- Clean up %%check
 
 * Mon Aug 31 2015 Carl George <carl.george@rackspace.com> - 1.0.3.1-1.ius
 - Initial spec file
