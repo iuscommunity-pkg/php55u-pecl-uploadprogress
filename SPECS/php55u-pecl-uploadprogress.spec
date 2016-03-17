@@ -88,7 +88,7 @@ popd
 %{__install} -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %endif
 
-%{__install} -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
+%{__install} -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{pecl_name}.xml
 
 
 %check
@@ -111,7 +111,7 @@ popd
 
 
 %post
-%{pecl_install} %{pecl_xmldir}/%{name}.xml >/dev/null || :
+%{pecl_install} %{pecl_xmldir}/%{pecl_name}.xml >/dev/null || :
 
 
 %postun
@@ -122,7 +122,7 @@ fi
 
 %files
 %doc nts/examples
-%{pecl_xmldir}/%{name}.xml
+%{pecl_xmldir}/%{pecl_name}.xml
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
@@ -137,6 +137,7 @@ fi
 * Thu Mar 17 2016 Carl George <carl.george@rackspace.com> - 1.0.3.1-2.ius
 - Clean up provides
 - Clean up filters
+- Install package.xml as %%{pecl_name}.xml, not %%{name}.xml
 
 * Mon Aug 31 2015 Carl George <carl.george@rackspace.com> - 1.0.3.1-1.ius
 - Initial spec file
