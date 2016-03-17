@@ -5,7 +5,7 @@
 
 Name: %{php}-pecl-%{pecl_name}
 Version: 1.0.3.1
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Summary: An extension to track progress of a file upload
 Group: Development/Libraries
 License: PHP
@@ -18,17 +18,23 @@ Requires: %{php}(zend-abi) = %{php_zend_api}
 Requires(post): %{php}-pear
 Requires(postun): %{php}-pear
 
-Provides: php-pecl-%{pecl_name} = %{version}-%{release}
-Provides: php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
-Provides: %{php}-%{pecl_name} = %{version}-%{release}
-Provides: %{php}-%{pecl_name}%{?_isa} = %{version}-%{release}
-Provides: php-%{pecl_name} = %{version}-%{release}
-Provides: php-%{pecl_name}%{?_isa} = %{version}-%{release}
-Provides: %{php}-pecl(%{pecl_name}) = %{version}
-Provides: %{php}-pecl(%{pecl_name})%{?_isa} = %{version}
+# provide the stock name
+Provides: php-pecl-%{pecl_name} = %{version}
+Provides: php-pecl-%{pecl_name}%{?_isa} = %{version}
+
+# provide the stock and IUS names without pecl
+Provides: php-%{pecl_name} = %{version}
+Provides: php-%{pecl_name}%{?_isa} = %{version}
+Provides: %{php}-%{pecl_name} = %{version}
+Provides: %{php}-%{pecl_name}%{?_isa} = %{version}
+
+# provide the stock and IUS names in pecl() format
 Provides: php-pecl(%{pecl_name}) = %{version}
 Provides: php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides: %{php}-pecl(%{pecl_name}) = %{version}
+Provides: %{php}-pecl(%{pecl_name})%{?_isa} = %{version}
 
+# conflict with the stock name
 Conflicts: php-%{pecl_name} < %{version}
 Conflicts: php-pecl-%{pecl_name} < %{version}
 
@@ -128,5 +134,8 @@ fi
 
 
 %changelog
+* Thu Mar 17 2016 Carl George <carl.george@rackspace.com> - 1.0.3.1-2.ius
+- Clean up provides
+
 * Mon Aug 31 2015 Carl George <carl.george@rackspace.com> - 1.0.3.1-1.ius
 - Initial spec file
