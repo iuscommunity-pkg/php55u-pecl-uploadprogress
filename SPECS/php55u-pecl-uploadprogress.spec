@@ -12,6 +12,7 @@ License: PHP
 URL: https://pecl.php.net/package/%{pecl_name}
 Source0: https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
+BuildRequires: %{php}-pear
 BuildRequires: %{php}-devel
 Requires: %{php}(api) = %{php_core_api}
 Requires: %{php}(zend-abi) = %{php_zend_api}
@@ -138,6 +139,7 @@ fi
 - Clean up provides
 - Clean up filters
 - Install package.xml as %%{pecl_name}.xml, not %%{name}.xml
+- Explicitly build require pear
 
 * Mon Aug 31 2015 Carl George <carl.george@rackspace.com> - 1.0.3.1-1.ius
 - Initial spec file
