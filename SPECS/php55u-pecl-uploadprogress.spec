@@ -1,16 +1,16 @@
-%global ext_name uploadprogress
-%global ini_name 20-%{ext_name}.ini
+%global pecl_name uploadprogress
+%global ini_name 20-%{pecl_name}.ini
 %global php php55u
 %global with_zts 0%{?__ztsphp:1}
 
-Name: %{php}-pecl-%{ext_name}
+Name: %{php}-pecl-%{pecl_name}
 Version: 1.0.3.1
 Release: 1.ius%{?dist}
 Summary: An extension to track progress of a file upload
 Group: Development/Libraries
 License: PHP
-URL: https://pecl.php.net/package/%{ext_name}
-Source0: https://pecl.php.net/get/%{ext_name}-%{version}.tgz
+URL: https://pecl.php.net/package/%{pecl_name}
+Source0: https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
 BuildRequires: %{php}-devel
 Requires: %{php}(api) = %{php_core_api}
@@ -18,19 +18,19 @@ Requires: %{php}(zend-abi) = %{php_zend_api}
 Requires(post): %{php}-pear
 Requires(postun): %{php}-pear
 
-Provides: php-pecl-%{ext_name} = %{version}-%{release}
-Provides: php-pecl-%{ext_name}%{?_isa} = %{version}-%{release}
-Provides: %{php}-%{ext_name} = %{version}-%{release}
-Provides: %{php}-%{ext_name}%{?_isa} = %{version}-%{release}
-Provides: php-%{ext_name} = %{version}-%{release}
-Provides: php-%{ext_name}%{?_isa} = %{version}-%{release}
-Provides: %{php}-pecl(%{ext_name}) = %{version}
-Provides: %{php}-pecl(%{ext_name})%{?_isa} = %{version}
-Provides: php-pecl(%{ext_name}) = %{version}
-Provides: php-pecl(%{ext_name})%{?_isa} = %{version}
+Provides: php-pecl-%{pecl_name} = %{version}-%{release}
+Provides: php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+Provides: %{php}-%{pecl_name} = %{version}-%{release}
+Provides: %{php}-%{pecl_name}%{?_isa} = %{version}-%{release}
+Provides: php-%{pecl_name} = %{version}-%{release}
+Provides: php-%{pecl_name}%{?_isa} = %{version}-%{release}
+Provides: %{php}-pecl(%{pecl_name}) = %{version}
+Provides: %{php}-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides: php-pecl(%{pecl_name}) = %{version}
+Provides: php-pecl(%{pecl_name})%{?_isa} = %{version}
 
-Conflicts: php-%{ext_name} < %{version}
-Conflicts: php-pecl-%{ext_name} < %{version}
+Conflicts: php-%{pecl_name} < %{version}
+Conflicts: php-pecl-%{pecl_name} < %{version}
 
 %if 0%{?fedora} < 20 && 0%{?rhel} < 7
 # Filter private shared object
@@ -46,14 +46,14 @@ An extension to track progress of a file upload.
 %prep
 %setup -q -c
 
-mv %{ext_name}-%{version} nts
+mv %{pecl_name}-%{version} nts
 %if %{with_zts}
 cp -pr nts zts
 %endif
 
 cat > %{ini_name} << EOF
-; Enable %{ext_name} extension module
-extension=%{ext_name}.so
+; Enable %{pecl_name} extension module
+extension=%{pecl_name}.so
 EOF
 
 
@@ -90,7 +90,7 @@ pushd nts
 # simple module load test
 %{__php} --no-php-ini \
     --define extension_dir=%{buildroot}%{php_extdir}/\
-    --define extension=%{ext_name}.so \
+    --define extension=%{pecl_name}.so \
     --modules | grep uploadprogress
 popd
 
@@ -98,7 +98,7 @@ popd
 pushd zts
 %{__ztsphp} --no-php-ini \
     --define extension_dir=%{buildroot}%{php_ztsextdir}/\
-    --define extension=%{ext_name}.so \
+    --define extension=%{pecl_name}.so \
     --modules | grep uploadprogress
 popd
 %endif
@@ -119,11 +119,11 @@ fi
 %{pecl_xmldir}/%{name}.xml
 
 %config(noreplace) %{php_inidir}/%{ini_name}
-%{php_extdir}/%{ext_name}.so
+%{php_extdir}/%{pecl_name}.so
 
 %if %{with_zts}
 %config(noreplace) %{php_ztsinidir}/%{ini_name}
-%{php_ztsextdir}/%{ext_name}.so
+%{php_ztsextdir}/%{pecl_name}.so
 %endif
 
 
